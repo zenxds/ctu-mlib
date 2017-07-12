@@ -1,7 +1,7 @@
 /**
  * 微信相关封装
  */
-const $ = require('../../zepto/zepto')
+var $ = require('../../zepto/zepto')
 require('../../zepto/ajax')
 
 var wx = window.wx
