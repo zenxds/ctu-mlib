@@ -1,16 +1,16 @@
 /**
  * 微信相关封装
  */
-import $ from '../../zepto/zepto'
-import '../../zepto/ajax'
+const $ = require('../../zepto/zepto')
+require('../../zepto/ajax')
 
-const wx = window.wx
-const isWX = /MicroMessenger/i.test(navigator.userAgent)
+var wx = window.wx
+var isWX = /MicroMessenger/i.test(navigator.userAgent)
 
 /**
  * 
  */
-exports.share = function(options) {
+var share = function(options) {
   if (!isWX || !wx) {
     return
   }
@@ -36,6 +36,10 @@ exports.share = function(options) {
       })
     }
   })
+}
+
+module.exports = {
+  share: share
 }
 
 function mix(to, from) {
