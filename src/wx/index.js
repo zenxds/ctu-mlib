@@ -24,13 +24,13 @@ var share = function(options) {
   $.ajax({
     url: options.shareConfigUrl || '/weixin/sdkconfig',
     dataType: 'json',
-    success: (config) => {
+    success: function(config) {
       config.jsApiList = [
         'onMenuShareAppMessage',
         'onMenuShareTimeline'
       ]
       wx.config(config)
-      wx.ready(() => {
+      wx.ready(function(){
         wx.onMenuShareTimeline(options)
         wx.onMenuShareAppMessage(options)
       })
