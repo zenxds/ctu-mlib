@@ -3,11 +3,9 @@ import Events from './Events'
 class Swipe {
   constructor(elem, options={}) {
     this.elem = typeof elem == 'string' ? document.querySelector(elem) : elem
-    this.options = mix({
-      threshold: 10
-    }, options)
+    this.options = mix({ threshold: 30 }, options)
     this.events = new Events()
-    
+
     this.bindEvents()
   }
 
@@ -21,6 +19,15 @@ class Swipe {
     this.elem.addEventListener("touchmove", this.move, false)
     this.elem.addEventListener("touchend", this.end, false)
     this.elem.addEventListener("touchcancel", this.cancel, false)
+    window.addEventListener('scroll', this.cancel)
+  }
+
+  unbindEvents() {
+    this.elem.removeEventListener("touchstart", this.start)
+    this.elem.removeEventListener("touchmove", this.move)
+    this.elem.removeEventListener("touchend", this.end)
+    this.elem.removeEventListener("touchcancel", this.cancel)
+    window.removeEventListener('scroll', this.cancel)
   }
 
   start(event) {
@@ -69,12 +76,7 @@ class Swipe {
 
   destroy() {
     this.cancel()
-
-    this.elem.removeEventListener("touchstart", this.start)
-    this.elem.removeEventListener("touchmove", this.move)
-    this.elem.removeEventListener("touchend", this.end)
-    this.elem.removeEventListener("touchcancel", this.cancel)
-
+    this.unbindEvents()
     this.events.off()
   }
 
